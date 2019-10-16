@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 var mongoose = require('mongoose');
 const bodyParser = require("body-parser");
 var app = express();
+var passport = require('./auth/passport');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -16,13 +17,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 var uri = 'mongodb+srv://thanhhai:thanhhai@cluster0-onyhg.mongodb.net/caro';
-mongoose.connect(uri, {useNewUrlParser: true});
+mongoose.connect(uri, {useNewUrlParser: true,useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('database connected, the application listening on port 3000');
 });
-
 
 
 // view engine setup
